@@ -1,0 +1,118 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.vitaliypetruk.project.NewAccount_MainInfo">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Username: *"
+        android:id="@+id/username_lable"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="42dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Name: *"
+        android:id="@+id/name_lable"
+        android:layout_alignTop="@+id/newAcc_mi_name"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="E-mail:*"
+        android:id="@+id/mail_lable"
+        android:layout_below="@+id/newAcc_mi_name"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Password: *"
+        android:id="@+id/password_lable"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/newAcc_mi_mail"
+        android:layout_toRightOf="@+id/username_lable" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Confirm password: *"
+        android:id="@+id/confirmpassword_lable"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/newAcc_mi_conf_password"
+        android:layout_toRightOf="@+id/username_lable"
+        android:layout_alignEnd="@+id/username_lable" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/newAcc_mi_name"
+        android:layout_below="@+id/newAcc_mi_username"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@+id/newAcc_mi_mail"
+        android:text="a s" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/newAcc_mi_mail"
+        android:layout_alignTop="@+id/mail_lable"
+        android:layout_alignParentEnd="true"
+        android:text="as@ba" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/newAcc_mi_password"
+        android:layout_alignTop="@+id/confirmpassword_lable"
+        android:layout_alignParentEnd="true"
+        android:text="as" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/newAcc_mi_conf_password"
+        android:layout_alignTop="@+id/password_lable"
+        android:layout_alignParentEnd="true"
+        android:text="as" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/newAcc_mi_username"
+        android:layout_alignTop="@+id/username_lable"
+        android:layout_alignEnd="@+id/newAcc_mi_conf_password"
+        android:layout_toEndOf="@+id/confirmpassword_lable"
+        android:layout_alignStart="@+id/newAcc_mi_name"
+        android:text="as" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="next"
+        android:id="@+id/newAcc_mi_next"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="saveMi_loadExtendsInfo" />
+
+</RelativeLayout>
