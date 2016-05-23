@@ -97,6 +97,9 @@ public class XMPP {
         Log.d(TAG_, "XMPP.connect() - " + connection.isConnected());
 
     }
+    public static void destroyConnection(){
+        connection.disconnect();
+    }
 
     public static void createUser(String username, String password, Map<String, String> setValues) throws SmackException.NotConnectedException, XMPPException.XMPPErrorException, SmackException.NoResponseException {
 

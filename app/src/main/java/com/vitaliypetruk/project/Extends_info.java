@@ -42,11 +42,11 @@ public class Extends_info extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_extends_info);
-        first_last_names = (EditText) findViewById(R.id.extend_info_names);
-        age = (EditText) findViewById(R.id.extend_info_age);
-        city = (EditText) findViewById(R.id.extend_info_city);
-        work = (EditText) findViewById(R.id.extend_info_work);
-        telephone = (EditText) findViewById(R.id.extend_info_telephon);
+        first_last_names = (EditText) findViewById(R.id.settings_extend_info_names);
+        age = (EditText) findViewById(R.id.settings_extend_info_age);
+        city = (EditText) findViewById(R.id.settings_extend_info_citsettingsy);
+        work = (EditText) findViewById(R.id.settings_extend_info_work);
+        telephone = (EditText) findViewById(R.id.settings_extend_info_telephon);
         avatar = (ImageView) findViewById(R.id.extend_info_avatar);
         save_finish = (Button) findViewById(R.id.extend_info_save);
         loadAvatar = (Button) findViewById(R.id.extend_info_loadAvatar);

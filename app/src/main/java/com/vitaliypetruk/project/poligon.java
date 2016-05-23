@@ -15,6 +15,7 @@ public class poligon extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.activity_poligon, container, false);
         return view;
     }

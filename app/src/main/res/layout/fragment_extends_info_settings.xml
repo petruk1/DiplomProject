@@ -1,0 +1,133 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+android:paddingRight="@dimen/activity_horizontal_margin"
+android:paddingTop="@dimen/activity_vertical_margin"
+android:paddingBottom="@dimen/activity_vertical_margin"
+tools:context="com.vitaliypetruk.project.Extends_info">
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    android:text="First&amp;Last name:     "
+    android:id="@+id/names_lable"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentStart="true" />
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    android:text="Age:     "
+    android:id="@+id/age_lable"
+    android:layout_below="@+id/settings_extend_info_names"
+    android:layout_alignParentStart="true" />
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    android:text="Work in:      "
+    android:id="@+id/work_in_lable"
+    android:layout_below="@+id/settings_extend_info_citsettingsy"
+    android:layout_alignParentStart="true" />
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    android:text="City:      "
+    android:id="@+id/city_lable"
+    android:layout_below="@+id/settings_extend_info_age"
+    android:layout_alignParentStart="true" />
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    android:text="Telephon:     "
+    android:id="@+id/telephon_lable"
+    android:layout_below="@+id/settings_extend_info_work"
+    android:layout_alignParentStart="true" />
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    android:id="@+id/avatar_lable"
+    android:text="Avatar:     "
+    android:layout_below="@+id/settings_extend_info_telephon"
+    android:layout_alignParentStart="true" />
+
+<EditText
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/settings_extend_info_names"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentEnd="true"
+    android:layout_toEndOf="@+id/names_lable"
+    android:text="kjh ijjj" />
+
+<EditText
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/settings_extend_info_age"
+    android:layout_below="@+id/settings_extend_info_names"
+    android:layout_alignEnd="@+id/settings_extend_info_names"
+    android:layout_alignStart="@+id/settings_extend_info_names"
+    android:text="22" />
+
+<EditText
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/settings_extend_info_citsettingsy"
+    android:layout_below="@+id/settings_extend_info_age"
+    android:layout_alignStart="@+id/settings_extend_info_age"
+    android:layout_alignEnd="@+id/settings_extend_info_age"
+    android:text="Odesa" />
+
+<EditText
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/settings_extend_info_work"
+    android:layout_alignTop="@+id/work_in_lable"
+    android:layout_alignEnd="@+id/settings_extend_info_citsettingsy"
+    android:layout_alignStart="@+id/settings_extend_info_citsettingsy"
+    android:text="google" />
+
+<EditText
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/settings_extend_info_telephon"
+    android:layout_alignTop="@+id/telephon_lable"
+    android:layout_alignEnd="@+id/settings_extend_info_work"
+    android:layout_alignStart="@+id/settings_extend_info_work"
+    android:text="256987" />
+
+<ImageView
+    android:layout_width="120dp"
+    android:layout_height="wrap_content"
+    android:id="@+id/settings_extend_info_avatar"
+    android:layout_below="@+id/avatar_lable"
+    android:layout_alignParentStart="true"
+    android:layout_marginTop="31dp" />
+
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Save&amp;Finish"
+    android:id="@+id/settings_extend_info_save"
+    android:onClick="finishModifyInfo"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentEnd="true" />
+
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="load"
+    android:id="@+id/settings_extend_info_loadAvatar"
+    android:onClick="loadAvatar_"
+    android:layout_below="@+id/settings_extend_info_telephon"
+    android:layout_alignParentEnd="true" />
+</RelativeLayout>

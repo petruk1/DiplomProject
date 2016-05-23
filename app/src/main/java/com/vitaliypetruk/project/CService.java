@@ -42,4 +42,7 @@ public class CService extends Service {
         isLogined = true;
         xmpp.login(username, password);
     }
+    public void onDestroy(){
+
+    }
 }

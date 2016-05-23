@@ -51,7 +51,6 @@ public class Login extends ActionBarActivity {
     public void onResume() {
         super.onResume();
 
-
     }
     private boolean isServiceRunning(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
@@ -65,7 +64,5 @@ public class Login extends ActionBarActivity {
     public void loadNewAcc(View view){
         startService(new Intent(this,CService.class));
         startActivity(new Intent(this,NewAccount_MainInfo.class));
-
     }
-
-    }
+}

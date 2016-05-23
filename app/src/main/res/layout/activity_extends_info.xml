@@ -21,7 +21,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Age:     "
         android:id="@+id/age_lable"
-        android:layout_below="@+id/extend_info_names"
+        android:layout_below="@+id/settings_extend_info_names"
         android:layout_alignParentStart="true" />
 
     <TextView
@@ -30,7 +30,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Work in:      "
         android:id="@+id/work_in_lable"
-        android:layout_below="@+id/extend_info_city"
+        android:layout_below="@+id/settings_extend_info_citsettingsy"
         android:layout_alignParentStart="true" />
 
     <TextView
@@ -39,7 +39,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="City:      "
         android:id="@+id/city_lable"
-        android:layout_below="@+id/extend_info_age"
+        android:layout_below="@+id/settings_extend_info_age"
         android:layout_alignParentStart="true" />
 
     <TextView
@@ -48,7 +48,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Telephon:     "
         android:id="@+id/telephon_lable"
-        android:layout_below="@+id/extend_info_work"
+        android:layout_below="@+id/settings_extend_info_work"
         android:layout_alignParentStart="true" />
 
     <TextView
@@ -63,7 +63,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/extend_info_names"
+        android:id="@+id/settings_extend_info_names"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_toEndOf="@+id/names_lable"
@@ -72,37 +72,37 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/extend_info_age"
-        android:layout_below="@+id/extend_info_names"
-        android:layout_alignEnd="@+id/extend_info_names"
-        android:layout_alignStart="@+id/extend_info_names"
+        android:id="@+id/settings_extend_info_age"
+        android:layout_below="@+id/settings_extend_info_names"
+        android:layout_alignEnd="@+id/settings_extend_info_names"
+        android:layout_alignStart="@+id/settings_extend_info_names"
         android:text="22" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/extend_info_city"
-        android:layout_below="@+id/extend_info_age"
-        android:layout_alignStart="@+id/extend_info_age"
-        android:layout_alignEnd="@+id/extend_info_age"
+        android:id="@+id/settings_extend_info_citsettingsy"
+        android:layout_below="@+id/settings_extend_info_age"
+        android:layout_alignStart="@+id/settings_extend_info_age"
+        android:layout_alignEnd="@+id/settings_extend_info_age"
         android:text="Odesa" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/extend_info_work"
+        android:id="@+id/settings_extend_info_work"
         android:layout_alignTop="@+id/work_in_lable"
-        android:layout_alignEnd="@+id/extend_info_city"
-        android:layout_alignStart="@+id/extend_info_city"
+        android:layout_alignEnd="@+id/settings_extend_info_citsettingsy"
+        android:layout_alignStart="@+id/settings_extend_info_citsettingsy"
         android:text="google" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/extend_info_telephon"
+        android:id="@+id/settings_extend_info_telephon"
         android:layout_alignTop="@+id/telephon_lable"
-        android:layout_alignEnd="@+id/extend_info_work"
-        android:layout_alignStart="@+id/extend_info_work"
+        android:layout_alignEnd="@+id/settings_extend_info_work"
+        android:layout_alignStart="@+id/settings_extend_info_work"
         android:text="256987" />
 
     <ImageView
@@ -119,7 +119,7 @@
         android:text="Save&amp;Finish"
         android:id="@+id/extend_info_save"
         android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/extend_info_telephon"
+        android:layout_alignEnd="@+id/settings_extend_info_telephon"
         android:layout_marginEnd="33dp"
         android:onClick="finishModifyInfo" />
 
