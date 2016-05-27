@@ -27,5 +27,5 @@ dependencies {
     compile group: 'org.jxmpp', name: 'jxmpp-util-cache', version: '0.2.0'
     // http://mvnrepository.com/artifact/org.jxmpp/jxmpp-core
     compile group: 'org.jxmpp', name: 'jxmpp-core', version: '0.4.1'
-
+    compile 'com.android.support:appcompat-v7:22.2.0'
 }

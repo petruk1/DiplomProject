@@ -72,7 +72,9 @@ public class LogOut extends android.support.v4.app.Fragment implements View.OnCl
             @Override
             public void onClick(View v) {
                 XMPP.destroyConnection();
-                startActivity(new Intent(getActivity().getBaseContext(),Login.class));
+                startActivity(new Intent(getActivity().getBaseContext(), Login.class));
+                getActivity().finish();
+
             }
         });
         return view;

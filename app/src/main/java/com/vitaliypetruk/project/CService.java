@@ -6,6 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
+
+import org.jivesoftware.smack.SmackException;
+import org.jivesoftware.smack.XMPPException;
+
+import java.io.IOException;
 
 public class CService extends Service {
     private String USERNAME;
@@ -23,14 +29,31 @@ public class CService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onStartCommand()");
+       if(XMPP.connection!=null)XMPP.connection.disconnect();
         Bundle loginData = intent.getExtras();
+        xmpp = XMPP.getInstance(HOST, "", "");
         if (loginData != null) {
             USERNAME = loginData.getString("login_username");
             PASSWORD = loginData.getString("login_password");
-            xmpp = XMPP.getInstance(HOST, "", "");
+            loginData.clear();
+
             xmpp.connect();
             Log.d("XMPP", "Service con - " + XMPP.connection.isConnected());
-            performLogin(USERNAME, PASSWORD);
+
+            do{
+            try {
+                XMPP.connection.login(USERNAME,PASSWORD);
+                isLogined = true;
+            } catch (XMPPException e) {
+                Toast.makeText(getBaseContext(),"Try again",Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            } catch (SmackException e) {
+                Toast.makeText(getBaseContext(),"Try again2",Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            } catch (IOException e) {
+                Toast.makeText(getBaseContext(),"Try again3",Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            }} while(!isLogined);
         } else {
             xmpp = XMPP.getInstance(HOST, "", "");
             xmpp.connect();
@@ -43,6 +66,7 @@ public class CService extends Service {
         xmpp.login(username, password);
     }
     public void onDestroy(){
-
+        Log.d("XMPP","onDestroy");
+        XMPP.connection = null;
     }
 }

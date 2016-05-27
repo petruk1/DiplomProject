@@ -25,6 +25,7 @@ public class Login extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_login);
 
         performLogin = (ImageButton)findViewById(R.id.login_performLogin);
@@ -34,11 +35,12 @@ public class Login extends ActionBarActivity {
     }
     public void performLogin(View view){
         Intent intent = new Intent(this,CService.class);
-        Log.d("CService", "password " + password.getText());
+        Log.d("XMPP", "password " + password.getText());
         Bundle loginingData =new Bundle();
         loginingData.putString("login_password", password.getText().toString());
         loginingData.putString("login_username", username.getText().toString());
-
+        Log.d("XMPP", "Service con -***** " + password.getText().toString());
+        Log.d("XMPP", "Service con -***** " + username.getText().toString());
         intent.putExtras(loginingData);
         startService(intent);
 

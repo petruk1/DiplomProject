@@ -68,6 +68,7 @@ public class NewAccount_MainInfo extends ActionBarActivity {
         try {
             if (password.getText().toString().equals(confirmPassword.getText().toString())) {
                 XMPP.createUser(username.getText().toString(), password.getText().toString(), setValues);
+                XMPP.login(username.getText().toString(), password.getText().toString());
                 startActivity(new Intent(this, Extends_info.class));
             } else
                 Toast.makeText(this, "Password must be like confirm password", Toast.LENGTH_LONG).show();

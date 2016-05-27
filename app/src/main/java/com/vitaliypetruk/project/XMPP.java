@@ -2,6 +2,7 @@ package com.vitaliypetruk.project;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.ConnectionListener;
@@ -79,8 +80,8 @@ public class XMPP {
             @Override
             public void run() {
                 try {
-                    connection.connect();
-                    connection.setPacketReplyTimeout(10000);
+                   connection.connect();
+                    connection.setPacketReplyTimeout(1000);
                     Log.d(TAG_, "XMPP.connect()  " + connection.isConnected());
                 } catch (SmackException e) {
                     e.printStackTrace();
@@ -99,6 +100,7 @@ public class XMPP {
     }
     public static void destroyConnection(){
         connection.disconnect();
+       connection=null;
     }
 
     public static void createUser(String username, String password, Map<String, String> setValues) throws SmackException.NotConnectedException, XMPPException.XMPPErrorException, SmackException.NoResponseException {
@@ -119,7 +121,7 @@ public class XMPP {
             Log.d("CService", "XMPP.login(): " + e.getMessage());
         } catch (SmackException e) {
             e.printStackTrace();
-            Log.d("CService", "XMPP.login(): " + e.getMessage());
+
         } catch (IOException e) {
             e.printStackTrace();
             Log.d("CService", "XMPP.login(): " + e.getMessage());

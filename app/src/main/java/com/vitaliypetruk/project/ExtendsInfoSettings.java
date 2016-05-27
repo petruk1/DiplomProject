@@ -1,5 +1,6 @@
 package com.vitaliypetruk.project;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.provider.MediaStore;
@@ -94,6 +96,7 @@ public class ExtendsInfoSettings extends android.support.v4.app.Fragment impleme
 
     }
     View view;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -108,8 +111,8 @@ public class ExtendsInfoSettings extends android.support.v4.app.Fragment impleme
         save_finish = (Button)  view.findViewById(R.id.settings_extend_info_save);
         loadAvatar = (Button)  view.findViewById(R.id.settings_extend_info_loadAvatar);
             /*Loacal connect. Need remove after compile*/
-            XMPP.getInstance("192.168.178.242","","").connect();
-            XMPP.login("testuser1", "testuser1");
+          //  XMPP.getInstance("192.168.178.242","","").connect();
+           // XMPP.login("testuser1", "testuser1");
 
         loadPersonalData();
 
@@ -125,6 +128,7 @@ public class ExtendsInfoSettings extends android.support.v4.app.Fragment impleme
                         1);
             }
         });
+
         save_finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,7 +142,7 @@ public class ExtendsInfoSettings extends android.support.v4.app.Fragment impleme
                     personalInfo.setField("AGE", age.getText().toString());
                     personalInfo.setAvatar(getBytesFromBitmap(image));
                     personalInfo.save(XMPP.connection);
-
+                    Toast.makeText(getActivity(),"All data are saved",Toast.LENGTH_LONG).show();
                 } catch (SmackException.NoResponseException e) {
                     e.printStackTrace();
                     Log.d("Extend", e.getMessage());
@@ -151,6 +155,7 @@ public class ExtendsInfoSettings extends android.support.v4.app.Fragment impleme
                 }
             }
         });
+
         return view;
     }
 
@@ -235,17 +240,29 @@ public class ExtendsInfoSettings extends android.support.v4.app.Fragment impleme
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     private void loadPersonalData(){
         personalInfo = new VCard();
         try {
             personalInfo.load(XMPP.connection);
+            if(personalInfo.getFirstName()!=null)
             first_last_names.setText(personalInfo.getFirstName());
+            else first_last_names.setText("No name");
+            if((personalInfo.getOrganization()!=null)&&!(personalInfo.getOrganization().isEmpty()))
             work.setText(personalInfo.getOrganization());
+            if((personalInfo.getPhoneWork("VOICE")!=null)&&!(personalInfo.getPhoneWork("VOICE").isEmpty()))
             telephone.setText(personalInfo.getPhoneWork("VOICE"));
+            if((personalInfo.getAddressFieldHome("LOCALITY")!=null)&&!(personalInfo.getAddressFieldHome("LOCALITY").isEmpty()))
             city.setText(personalInfo.getAddressFieldHome("LOCALITY"));
+            if(personalInfo.getField("AGE")!=null)
             age.setText(personalInfo.getField("AGE"));
-            image = BitmapFactory.decodeByteArray(personalInfo.getAvatar(),0,personalInfo.getAvatar().length);
-            avatar.setImageBitmap(image);
+            if(personalInfo.getAvatar()!=null) {
+                image = BitmapFactory.decodeByteArray(personalInfo.getAvatar(), 0, personalInfo.getAvatar().length);
+
+                avatar.setMaxHeight(60);
+                avatar.setMaxWidth(60);
+                avatar.setImageBitmap(image);
+            }
         } catch (SmackException.NoResponseException e) {
             e.printStackTrace();
         } catch (XMPPException.XMPPErrorException e) {

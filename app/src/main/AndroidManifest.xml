@@ -13,7 +13,11 @@
         <activity
             android:name=".Home"
             android:label="@string/title_activity_home" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <fragment
@@ -41,11 +45,7 @@
         <activity
             android:name=".Settings"
             android:label="@string/title_activity_settings" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

@@ -67,7 +67,7 @@ tools:context="com.vitaliypetruk.project.Extends_info">
     android:layout_alignParentTop="true"
     android:layout_alignParentEnd="true"
     android:layout_toEndOf="@+id/names_lable"
-    android:text="kjh ijjj" />
+    android:text="Not specified" />
 
 <EditText
     android:layout_width="wrap_content"
@@ -76,7 +76,7 @@ tools:context="com.vitaliypetruk.project.Extends_info">
     android:layout_below="@+id/settings_extend_info_names"
     android:layout_alignEnd="@+id/settings_extend_info_names"
     android:layout_alignStart="@+id/settings_extend_info_names"
-    android:text="22" />
+    android:text="Not specified" />
 
 <EditText
     android:layout_width="wrap_content"
@@ -85,7 +85,7 @@ tools:context="com.vitaliypetruk.project.Extends_info">
     android:layout_below="@+id/settings_extend_info_age"
     android:layout_alignStart="@+id/settings_extend_info_age"
     android:layout_alignEnd="@+id/settings_extend_info_age"
-    android:text="Odesa" />
+    android:text="Not specified" />
 
 <EditText
     android:layout_width="wrap_content"
@@ -94,7 +94,7 @@ tools:context="com.vitaliypetruk.project.Extends_info">
     android:layout_alignTop="@+id/work_in_lable"
     android:layout_alignEnd="@+id/settings_extend_info_citsettingsy"
     android:layout_alignStart="@+id/settings_extend_info_citsettingsy"
-    android:text="google" />
+    android:text="Not specified" />
 
 <EditText
     android:layout_width="wrap_content"
@@ -102,16 +102,18 @@ tools:context="com.vitaliypetruk.project.Extends_info">
     android:id="@+id/settings_extend_info_telephon"
     android:layout_alignTop="@+id/telephon_lable"
     android:layout_alignEnd="@+id/settings_extend_info_work"
-    android:layout_alignStart="@+id/settings_extend_info_work"
-    android:text="256987" />
+    android:text="Not specified"
+    android:layout_alignStart="@+id/settings_extend_info_work" />
 
 <ImageView
-    android:layout_width="120dp"
+    android:layout_width="60dp"
     android:layout_height="wrap_content"
     android:id="@+id/settings_extend_info_avatar"
     android:layout_below="@+id/avatar_lable"
+    android:layout_marginTop="31dp"
+    android:background="@drawable/abc_ic_clear_mtrl_alpha"
     android:layout_alignParentStart="true"
-    android:layout_marginTop="31dp" />
+    android:layout_toStartOf="@+id/settings_extend_info_telephon" />
 
 <Button
     android:layout_width="wrap_content"
