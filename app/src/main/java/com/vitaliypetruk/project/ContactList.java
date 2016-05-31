@@ -42,7 +42,7 @@ public class ContactList extends android.support.v4.app.Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    ListView contacts;
+    public static ListView contacts;
     private OnFragmentInteractionListener mListener;
 
     /**
@@ -80,19 +80,19 @@ public class ContactList extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       view = inflater.inflate(R.layout.fragment_contact_list, container, false);
-      contacts = (ListView)view.findViewById(R.id.Contact_contact_list);
-        ArrayList s = new ArrayList();
+      if(XMPP.connection!=null) {
+          view = inflater.inflate(R.layout.fragment_contact_list, container, false);
+          contacts = (ListView) view.findViewById(R.id.Contact_contact_list);
 
-        contacts.setPadding(5,5,5,5);
-        contacts.setAdapter(new ContactListAdapter(getActivity(),getContactsList()));
-        contacts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("TAG","Clicked");
-                view.setBackgroundColor(189);
-            }
-        });
+          contacts.setPadding(5, 5, 5, 5);
+          contacts.setAdapter(new ContactListAdapter(getActivity(), getContactsList()));
+          contacts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+              @Override
+              public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                  view.setBackgroundColor(189);
+              }
+          });
+      }
         return view;
     }
 
@@ -154,7 +154,7 @@ public class ContactList extends android.support.v4.app.Fragment {
 
             }catch (Exception e){
                 e.printStackTrace();
-                Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_LONG).show();
+               // Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_LONG).show();
             }
 
             availabilyty = roster.getPresence(entry.getUser());

@@ -1,6 +1,9 @@
 package com.vitaliypetruk.project;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import android.app.ActivityManager;
 import android.content.Context;
@@ -23,7 +26,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class Home extends ActionBarActivity implements ActionBar.TabListener {
@@ -42,13 +48,13 @@ public class Home extends ActionBarActivity implements ActionBar.TabListener {
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
-
+    ListView contactList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_home);
-
+        getSupportFragmentManager().getFragments();
         // Set up the action bar.
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -90,12 +96,18 @@ public class Home extends ActionBarActivity implements ActionBar.TabListener {
         if (!isServiceRunning(CService.class))
             startActivity(new Intent(this,Login.class));
     }
+    boolean done = false;
+    ArrayList newContactList = new ArrayList();
+    Map<Integer,ContactListItem> map = new HashMap<>();
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_home, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+
+   //     contactList = ContactList.contacts;
+
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -108,13 +120,31 @@ public class Home extends ActionBarActivity implements ActionBar.TabListener {
             @Override
             public boolean onQueryTextChange(String newText) {
                 Log.d("TAGA", "Something another");
+                if(sett) {
+                    if(!done){
+                        contactList = (ListView) mViewPager.findViewById(R.id.Contact_contact_list);
+                        for (int i = 0; i<contactList.getAdapter().getCount();i++) {
+                            map.put(i,((ContactListItem)contactList.getAdapter().getItem(i)));
+                        }
+                        done = true;
+                    }
+                    ArrayList listA = new ArrayList();
+                    for(int i = 0; i<map.size();i++){
+                        Toast.makeText(getBaseContext(),""+map.get(i).getName(),Toast.LENGTH_SHORT).show();
+                        if(map.get(i).getName().toLowerCase().startsWith(newText)){
+
+                            listA.add(map.get(i));
+                        }
+                    }
+                    contactList.setAdapter(new ContactListAdapter(getBaseContext(),listA));
+                }
                 return false;
             }
         });
         getMenuInflater().inflate(R.menu.menu_home, menu);
         return true;
     }
-
+    boolean sett = false;
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -158,7 +188,13 @@ public class Home extends ActionBarActivity implements ActionBar.TabListener {
 
         @Override
         public Fragment getItem(int position) {
-            if (position == 2) {
+
+            if (position == 0) {
+                return   PlaceholderFragment.newInstance(position + 1);
+            } else
+            if (position == 1) {
+                sett = true;
+
                 return  ContactList.newInstance("","");
             } else
                 return PlaceholderFragment.newInstance(position + 1);
@@ -167,7 +203,7 @@ public class Home extends ActionBarActivity implements ActionBar.TabListener {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 2;
         }
 
         @Override
@@ -178,8 +214,7 @@ public class Home extends ActionBarActivity implements ActionBar.TabListener {
                     return getString(R.string.title_section1).toUpperCase(l);
                 case 1:
                     return getString(R.string.title_section2).toUpperCase(l);
-                case 2:
-                    return getString(R.string.title_section3).toUpperCase(l);
+
             }
             return null;
         }

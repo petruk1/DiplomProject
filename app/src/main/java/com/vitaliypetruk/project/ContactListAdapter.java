@@ -41,7 +41,7 @@ public class ContactListAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return position;
     }
-
+    Bitmap bitmap = null ;
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
        ViewHolder holder;
@@ -56,11 +56,15 @@ public class ContactListAdapter extends BaseAdapter {
         }else{
             holder = (ViewHolder) convertView.getTag();
         }
-        Bitmap bitmap;
+
+
         if(contactList.get(position).getAvatar()!=null) {
-            bitmap = BitmapFactory.decodeByteArray(contactList.get(position).getAvatar(), 0, contactList.get(position).getAvatar().length);
+
+            bitmap = decodeSampledBitmapFromResource(contactList.get(position).getAvatar(),60,60);
             holder.avatar.setImageBitmap(bitmap);
+
         }
+
         holder.name.setText(contactList.get(position).getName());
         holder.status.setText(contactList.get(position).getStatus());
         holder.jid.setText(contactList.get(position).getJid());
@@ -73,5 +77,42 @@ public class ContactListAdapter extends BaseAdapter {
         TextView status;
         TextView jid;
         ImageView avatar;
+    }
+    public static int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while ((halfHeight / inSampleSize) > reqHeight
+                    && (halfWidth / inSampleSize) > reqWidth) {
+                inSampleSize *= 2;
+            }
+        }
+
+        return inSampleSize;
+    }
+    public static Bitmap decodeSampledBitmapFromResource(byte[] data, int   reqWidth, int reqHeight) {
+
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        //options.inPurgeable = true;
+        BitmapFactory.decodeByteArray(data, 0, data.length, options);
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeByteArray(data, 0, data.length, options);
     }
 }
