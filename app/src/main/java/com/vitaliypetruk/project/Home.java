@@ -93,7 +93,7 @@ public class Home extends ActionBarActivity implements ActionBar.TabListener {
     @Override
     public void onResume(){
         super.onResume();
-        if (!isServiceRunning(CService.class))
+        if (/*!isServiceRunning(CService.class)*/XMPP.connection==null)
             startActivity(new Intent(this,Login.class));
     }
     boolean done = false;
@@ -189,9 +189,10 @@ public class Home extends ActionBarActivity implements ActionBar.TabListener {
         @Override
         public Fragment getItem(int position) {
 
-            if (position == 0) {
-                return   PlaceholderFragment.newInstance(position + 1);
-            } else
+           /* if (position == 0) {
+
+                return ChatList.newInstance("","");
+            } else*/
             if (position == 1) {
                 sett = true;
 

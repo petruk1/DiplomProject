@@ -30,6 +30,8 @@ public class CService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onStartCommand()");
        if(XMPP.connection!=null)XMPP.connection.disconnect();
+        if(intent==null)  Log.d("XMPP", "intent is null");
+
         Bundle loginData = intent.getExtras();
         xmpp = XMPP.getInstance(HOST, "", "");
         if (loginData != null) {
@@ -38,7 +40,7 @@ public class CService extends Service {
             loginData.clear();
 
             xmpp.connect();
-            Log.d("XMPP", "Service con - " + XMPP.connection.isConnected());
+            Log.d("XMPP", "Service con inside login " + XMPP.connection.isConnected());
 
             do{
             try {
@@ -58,7 +60,7 @@ public class CService extends Service {
             xmpp = XMPP.getInstance(HOST, "", "");
             xmpp.connect();
         }
-        return super.onStartCommand(intent, flags, startId);
+        return START_STICKY;
     }
 
     private void performLogin(String username, String password) {

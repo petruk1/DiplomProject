@@ -46,7 +46,8 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:background="@drawable/send_button"
-            android:text="d" />
+            android:text="d"
+            android:onClick="sendTextMessage" />
     </LinearLayout>
 
 

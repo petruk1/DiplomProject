@@ -96,11 +96,13 @@
     <orderEntry type="library" exported="" name="support-v4-22.2.0" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-22.2.0" level="project" />
     <orderEntry type="library" exported="" name="smack-im-4.1.7" level="project" />
+    <orderEntry type="library" exported="" name="postgresql-9.4-1204.jdbc4" level="project" />
     <orderEntry type="library" exported="" name="smack-android-4.1.7" level="project" />
     <orderEntry type="library" exported="" name="smack-tcp-4.1.7" level="project" />
     <orderEntry type="library" exported="" name="multidex-1.0.1" level="project" />
     <orderEntry type="library" exported="" name="smack-core-4.1.7" level="project" />
     <orderEntry type="library" exported="" name="smack-sasl-provided-4.1.7" level="project" />
     <orderEntry type="library" exported="" name="smack-extensions-4.1.7" level="project" />
+    <orderEntry type="library" exported="" name="postgresql-9.0-801.jdbc4" level="project" />
   </component>
 </module>

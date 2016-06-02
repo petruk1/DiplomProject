@@ -82,7 +82,7 @@ public class XMPP {
                 try {
                    connection.connect();
                     connection.setPacketReplyTimeout(1000);
-                    Log.d(TAG_, "XMPP.connect()  " + connection.isConnected());
+                //    Log.d(TAG_, "XMPP.connect()  " + connection.isConnected());
                 } catch (SmackException e) {
                     e.printStackTrace();
                     Log.d(TAG_, "XMPP.connect()  " + e.getMessage());
@@ -95,7 +95,7 @@ public class XMPP {
                 }
             }
         }).start();
-        Log.d(TAG_, "XMPP.connect() - " + connection.isConnected());
+//        Log.d(TAG_, "XMPP.connect() - " + connection.isConnected());
 
     }
     public static void destroyConnection(){
@@ -105,7 +105,7 @@ public class XMPP {
 
     public static void createUser(String username, String password, Map<String, String> setValues) throws SmackException.NotConnectedException, XMPPException.XMPPErrorException, SmackException.NoResponseException {
 
-        Log.d("CON", connection.isConnected() + "");
+       // Log.d("CON", connection.isConnected() + "");
         AccountManager accountManager = AccountManager.getInstance(connection);
         accountManager.sensitiveOperationOverInsecureConnection(true);
         accountManager.createAccount(username, password, setValues);

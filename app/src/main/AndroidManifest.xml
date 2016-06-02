@@ -46,7 +46,14 @@
         <activity
             android:name=".Settings"
             android:label="@string/title_activity_settings" >
-
+        </activity>
+        <activity
+            android:name=".ContactInfo"
+            android:label="@string/title_activity_contact_info" >
+        </activity>
+        <activity
+            android:name=".Chats"
+            android:label="@string/chat_title" >
         </activity>
     </application>
 

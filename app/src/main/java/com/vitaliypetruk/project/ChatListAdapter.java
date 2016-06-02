@@ -13,24 +13,25 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
- * Created by vital on 25.05.16.
+ * Created by vital on 01.06.16.
  */
-public class ContactListAdapter extends BaseAdapter {
-    private ArrayList<ContactListItem> contactList;
+public class ChatListAdapter extends BaseAdapter {
+    private ArrayList<ChatListItem> listItems  ;
     private LayoutInflater layoutInflater;
 
-    public ContactListAdapter(Context context, ArrayList<ContactListItem> contactList ){
-        this.contactList = contactList;
+    public ChatListAdapter(Context context, ArrayList<ChatListItem> listItems){
+        this.listItems = listItems;
         layoutInflater = LayoutInflater.from(context);
+
     }
     @Override
     public int getCount() {
-        return contactList.size();
+        return listItems.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return contactList.get(position);
+        return listItems.get(position);
     }
 
     @Override
@@ -38,39 +39,38 @@ public class ContactListAdapter extends BaseAdapter {
         return position;
     }
     Bitmap bitmap = null ;
+    byte[] av;
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-       ViewHolder holder;
+        ViewHolder holder;
         if(convertView==null){
-            convertView= layoutInflater.inflate(R.layout.contact_list_item,null);
+            convertView = layoutInflater.inflate(R.layout.chat_list_item,null);
             holder = new ViewHolder();
-            holder.name = (TextView)convertView.findViewById(R.id.contact_item_name);
-            holder.status = (TextView)convertView.findViewById(R.id.contact_item_status);
-            holder.jid = (TextView)convertView.findViewById(R.id.contact_item_jid);
-            holder.avatar =(ImageView)convertView.findViewById(R.id.contact_item_avatar);
+            holder.name = (TextView)convertView.findViewById(R.id.chat_list_item_name);
+            holder.date = (TextView)convertView.findViewById(R.id.chat_list_item_date);
+            holder.lastMessage = (TextView)convertView.findViewById(R.id.chat_list_item_message);
+            holder.avatar = (ImageView)convertView.findViewById(R.id.chat_list_item_avatar);
+            holder.jid = (TextView)convertView.findViewById(R.id.chat_list_item_jid);
             convertView.setTag(holder);
-        }else{
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
-
-
-        if(contactList.get(position).getAvatar()!=null) {
-
-            bitmap = decodeSampledBitmapFromResource(contactList.get(position).getAvatar(),60,60);
+        holder.name.setText(listItems.get(position).getName());
+        holder.lastMessage.setText(listItems.get(position).getLastMessage());
+        holder.date.setText(listItems.get(position).getDateOfLastMessage());
+        holder.jid.setText(listItems.get(position).getJid());
+       // holder.jid.setVisibility();
+        av=listItems.get(position).getAvatar();
+        if(av!=null){
+            bitmap = decodeSampledBitmapFromResource(av,60,60);
             holder.avatar.setImageBitmap(bitmap);
-
         }
-
-        holder.name.setText(contactList.get(position).getName());
-        holder.status.setText(contactList.get(position).getStatus());
-        holder.jid.setText(contactList.get(position).getJid());
-
-
         return convertView;
     }
-    static  class ViewHolder{
+    static class ViewHolder{
         TextView name;
-        TextView status;
+        TextView date;
+        TextView lastMessage;
         TextView jid;
         ImageView avatar;
     }

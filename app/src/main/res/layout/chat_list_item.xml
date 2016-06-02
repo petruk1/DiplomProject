@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/chat_list_item_message"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/chat_list_item_name"
+        android:layout_toRightOf="@+id/chat_list_item_avatar"
+        android:layout_marginLeft="21dp" />
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/chat_list_item_avatar"
+        android:background="@drawable/abc_ic_clear_mtrl_alpha" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/chat_list_item_name"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/chat_list_item_avatar"
+        android:layout_marginStart="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/chat_list_item_date"
+        android:layout_marginLeft="21dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="jid"
+        android:id="@+id/chat_list_item_jid"
+        android:layout_toStartOf="@+id/chat_list_item_date"
+        android:layout_alignParentTop="true"
+        android:layout_alignBottom="@+id/chat_list_item_date" />
+</RelativeLayout>

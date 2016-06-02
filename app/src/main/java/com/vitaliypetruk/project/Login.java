@@ -15,12 +15,18 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.jivesoftware.smack.SmackException;
+import org.jivesoftware.smack.XMPPException;
+
+import java.io.IOException;
+
 
 public class Login extends ActionBarActivity {
     private ImageButton performLogin;
     private Button createNewAccount;
     private TextView username;
     private TextView password;
+    private boolean isLogined = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,16 +41,32 @@ public class Login extends ActionBarActivity {
     }
     public void performLogin(View view){
         Intent intent = new Intent(this,CService.class);
-        Log.d("XMPP", "password " + password.getText());
+
         Bundle loginingData =new Bundle();
         loginingData.putString("login_password", password.getText().toString());
         loginingData.putString("login_username", username.getText().toString());
         Log.d("XMPP", "Service con -***** " + password.getText().toString());
         Log.d("XMPP", "Service con -***** " + username.getText().toString());
         intent.putExtras(loginingData);
-        startService(intent);
+       if(!intent.getExtras().isEmpty()) Log.d("XMPP", "intent is null ***** ");
+       // startService(intent);
+        XMPP.getInstance("192.168.178.242",username.getText().toString(),password.getText().toString()).connect();
 
-                   startActivity(new Intent(Login.this, Home.class));
+        do{
+            try {
+                XMPP.connection.login(username.getText().toString(),password.getText().toString());
+                isLogined = true;
+            } catch (XMPPException e) {
+                Toast.makeText(getBaseContext(),"Try again",Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            } catch (SmackException e) {
+                Toast.makeText(getBaseContext(),"Try again2",Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            } catch (IOException e) {
+                Toast.makeText(getBaseContext(),"Try again3",Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            }} while(!isLogined);
+        startActivity(new Intent(Login.this, Home.class));
             finish();
     }
 

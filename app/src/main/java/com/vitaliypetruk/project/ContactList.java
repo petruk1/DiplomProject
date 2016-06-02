@@ -1,6 +1,7 @@
 package com.vitaliypetruk.project;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.jivesoftware.smack.packet.Presence;
@@ -90,6 +92,12 @@ public class ContactList extends android.support.v4.app.Fragment {
               @Override
               public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                   view.setBackgroundColor(189);
+                  Intent data = new Intent(getActivity(),ContactInfo.class);
+                String  jid=((TextView) view.findViewById(R.id.contact_item_jid)).getText().toString();
+                  Bundle b = new Bundle();
+                  b.putString("userjid",jid);
+                  data.putExtras(b);
+                  startActivity(data);
               }
           });
       }
@@ -177,5 +185,6 @@ public class ContactList extends android.support.v4.app.Fragment {
         }else userState="offline";
         return userState;
     }
+
 
 }
