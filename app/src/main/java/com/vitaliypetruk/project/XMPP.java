@@ -65,7 +65,7 @@ public class XMPP {
         //  config.setUsernameAndPassword(username,password);
         config.setSecurityMode(ConnectionConfiguration.SecurityMode.disabled);
         config.setServiceName("vital");
-        config.setHost("192.168.178.242");
+        config.setHost("10.42.0.1");
         config.setPort(5222);
         config.setDebuggerEnabled(true);
         XMPPTCPConnection.setUseStreamManagementResumptiodDefault(true);

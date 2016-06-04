@@ -16,14 +16,15 @@ import java.util.ArrayList;
  * Created by vital on 01.06.16.
  */
 public class ChatListAdapter extends BaseAdapter {
-    private ArrayList<ChatListItem> listItems  ;
+    private ArrayList<ChatListItem> listItems;
     private LayoutInflater layoutInflater;
 
-    public ChatListAdapter(Context context, ArrayList<ChatListItem> listItems){
+    public ChatListAdapter(Context context, ArrayList<ChatListItem> listItems) {
         this.listItems = listItems;
         layoutInflater = LayoutInflater.from(context);
 
     }
+
     @Override
     public int getCount() {
         return listItems.size();
@@ -38,19 +39,21 @@ public class ChatListAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return position;
     }
-    Bitmap bitmap = null ;
+
+    Bitmap bitmap = null;
     byte[] av;
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-        if(convertView==null){
-            convertView = layoutInflater.inflate(R.layout.chat_list_item,null);
+        if (convertView == null) {
+            convertView = layoutInflater.inflate(R.layout.chat_list_item, null);
             holder = new ViewHolder();
-            holder.name = (TextView)convertView.findViewById(R.id.chat_list_item_name);
-            holder.date = (TextView)convertView.findViewById(R.id.chat_list_item_date);
-            holder.lastMessage = (TextView)convertView.findViewById(R.id.chat_list_item_message);
-            holder.avatar = (ImageView)convertView.findViewById(R.id.chat_list_item_avatar);
-            holder.jid = (TextView)convertView.findViewById(R.id.chat_list_item_jid);
+            holder.name = (TextView) convertView.findViewById(R.id.chat_list_item_name);
+            holder.date = (TextView) convertView.findViewById(R.id.chat_list_item_date);
+            holder.lastMessage = (TextView) convertView.findViewById(R.id.chat_list_item_message);
+            holder.avatar = (ImageView) convertView.findViewById(R.id.chat_list_item_avatar);
+            holder.jid = (TextView) convertView.findViewById(R.id.chat_list_item_jid);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -59,21 +62,23 @@ public class ChatListAdapter extends BaseAdapter {
         holder.lastMessage.setText(listItems.get(position).getLastMessage());
         holder.date.setText(listItems.get(position).getDateOfLastMessage());
         holder.jid.setText(listItems.get(position).getJid());
-       // holder.jid.setVisibility();
-        av=listItems.get(position).getAvatar();
-        if(av!=null){
-            bitmap = decodeSampledBitmapFromResource(av,60,60);
+        // holder.jid.setVisibility();
+        av = listItems.get(position).getAvatar();
+        if (av != null) {
+            bitmap = decodeSampledBitmapFromResource(av, 60, 60);
             holder.avatar.setImageBitmap(bitmap);
         }
         return convertView;
     }
-    static class ViewHolder{
+
+    static class ViewHolder {
         TextView name;
         TextView date;
         TextView lastMessage;
         TextView jid;
         ImageView avatar;
     }
+
     public static int calculateInSampleSize(
             BitmapFactory.Options options, int reqWidth, int reqHeight) {
         // Raw height and width of image
@@ -96,7 +101,8 @@ public class ChatListAdapter extends BaseAdapter {
 
         return inSampleSize;
     }
-    public static Bitmap decodeSampledBitmapFromResource(byte[] data, int   reqWidth, int reqHeight) {
+
+    public static Bitmap decodeSampledBitmapFromResource(byte[] data, int reqWidth, int reqHeight) {
 
         // First decode with inJustDecodeBounds=true to check dimensions
         final BitmapFactory.Options options = new BitmapFactory.Options();

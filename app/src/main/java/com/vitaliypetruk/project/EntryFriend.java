@@ -5,56 +5,52 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.roster.Roster;
-import org.jivesoftware.smack.roster.RosterEntry;
 import org.jivesoftware.smackx.vcardtemp.packet.VCard;
 
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 
-public class ContactInfo extends ActionBarActivity {
+public class EntryFriend extends ActionBarActivity {
+    String jid;
+    VCard vCard = new VCard();
     ImageView avatarImageView;
-    ImageButton chatButton;
-    ImageButton removeUserButton;
+    ImageButton accept;
+    ImageButton denay;
     ListView contactInfoList;
     FileOutputStream out;
     String selectedContactName;
-    String jid;
-    VCard vCard = new VCard();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contact_info);
-        avatarImageView= (ImageView)findViewById(R.id.contact_info_avatar);
-        chatButton=(ImageButton)findViewById(R.id.contact_info_chat);
-        removeUserButton=(ImageButton)findViewById(R.id.contact_info_remove);
-        contactInfoList = (ListView)findViewById(R.id.userInfo);
-       savedInstanceState = getIntent().getExtras();
-            jid = savedInstanceState.getString("userjid");
+        setContentView(R.layout.activity_entry_friend);
+        avatarImageView= (ImageView)findViewById(R.id.newFriend_info_avatar);
+        accept=(ImageButton)findViewById(R.id.newFriend_info_accept);
+        denay=(ImageButton)findViewById(R.id.newFriend_denay);
+        contactInfoList = (ListView)findViewById(R.id.newFriend_userInfo);
+        savedInstanceState = getIntent().getExtras();
+        jid = savedInstanceState.getString("userjid");
 
         contactInfoList.setAdapter(new CustomListAdapter(this, getListData()));
-
     }
 
     private ArrayList getListData() {
         ArrayList<ContactInfoItem> results = new ArrayList<>();
         try {
             vCard.load(XMPP.connection,jid);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(vCard.getAvatar(),0,vCard.getAvatar().length);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(vCard.getAvatar(), 0, vCard.getAvatar().length);
             avatarImageView.setImageBitmap(bitmap);
-                    ContactInfoItem name = new ContactInfoItem();
+            ContactInfoItem name = new ContactInfoItem();
             if(vCard.getFirstName()!=null){
                 name.setMainText(vCard.getFirstName());
                 name.setSubText("Name");
@@ -112,20 +108,14 @@ public class ContactInfo extends ActionBarActivity {
         }
         return results;
     }
-    public void loadChat(View view){
-        Intent container = new Intent(this,Chats.class);
-        Bundle data = new Bundle();
-        data.putString("userjid",jid);
-        container.putExtras(data);
-        startActivity(container);
-        finish();
-    }
-    public void removeContact(View view){
+    public void acceptNewFriend(View view){
         Roster roster = Roster.getInstanceFor(XMPP.connection);
         try {
-            roster.getGroup("Friends").removeEntry(roster.getEntry(jid));
+            roster.createEntry(jid,vCard.getFirstName(),new String[]{"Friends"});
             startActivity(new Intent(this,Home.class));
             finish();
+        } catch (SmackException.NotLoggedInException e) {
+            e.printStackTrace();
         } catch (SmackException.NoResponseException e) {
             e.printStackTrace();
         } catch (XMPPException.XMPPErrorException e) {
@@ -134,4 +124,10 @@ public class ContactInfo extends ActionBarActivity {
             e.printStackTrace();
         }
     }
+    public void denay(View view ){
+        startActivity(new Intent(this,Home.class));
+        finish();
+    }
+
+
 }

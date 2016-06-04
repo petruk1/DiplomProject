@@ -45,27 +45,28 @@ public class Chats extends ActionBarActivity {
     private VCard ownCard = new VCard();
     private VCard friendCard = new VCard();
     private String userjid;
-    byte[] ownAvarat  = null;
+    byte[] ownAvarat = null;
     byte[] friendAvatar = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat_layout);
-        messageEdit = (EditText)findViewById(R.id.messageEditText);
-        messageList = (ListView)findViewById(R.id.msgListView);
-        sendButton = (ImageButton)findViewById(R.id.sendMessageButton);
+        messageEdit = (EditText) findViewById(R.id.messageEditText);
+        messageList = (ListView) findViewById(R.id.msgListView);
+        sendButton = (ImageButton) findViewById(R.id.sendMessageButton);
         messageList.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
         messageList.setStackFromBottom(true);
         chatlist = new ArrayList<ChatMessage>();
         chatAdapter = new ChatAdapter(this, chatlist);
         messageList.setAdapter(chatAdapter);
         random = new Random();
-         savedInstanceState = getIntent().getExtras();
-        userjid =savedInstanceState.getString("userjid");
+        savedInstanceState = getIntent().getExtras();
+        userjid = savedInstanceState.getString("userjid");
         try {
             ownCard.load(XMPP.connection);
             ownAvarat = ownCard.getAvatar();
-            friendCard.load(XMPP.connection,userjid);
+            friendCard.load(XMPP.connection, userjid);
             friendAvatar = friendCard.getAvatar();
         } catch (SmackException.NoResponseException e) {
             e.printStackTrace();
@@ -74,33 +75,33 @@ public class Chats extends ActionBarActivity {
         } catch (SmackException.NotConnectedException e) {
             e.printStackTrace();
         }
-                ChatManager.getInstanceFor(XMPP.connection).addChatListener(new ChatManagerListener() {
+        ChatManager.getInstanceFor(XMPP.connection).addChatListener(new ChatManagerListener() {
+            @Override
+            public void chatCreated(Chat chat, boolean createdLocally) {
+                chat.addMessageListener(new ChatMessageListener() {
                     @Override
-                    public void chatCreated(Chat chat, boolean createdLocally) {
-                        chat.addMessageListener(new ChatMessageListener() {
-                            @Override
-                            public void processMessage(Chat chat, Message message) {
-                                if (message.getBody() != null) {
-                                    String messageBody = message.getBody();
-                                    System.out.println(messageBody);
+                    public void processMessage(Chat chat, Message message) {
+                        if (message.getBody() != null) {
+                            String messageBody = message.getBody();
+                            System.out.println(messageBody);
 
-                                    final  ChatMessage cm = new ChatMessage("", "", messageBody, "" + random.nextInt(1000), false);
-                                    cm.setMsgID();
-                                    cm.body = messageBody;
-                                    cm.avatar= friendAvatar;
-                                    cm.Time = CommonMethods.getCurrentTime();
-                                    runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            chatAdapter.add(cm);
-                                            chatAdapter.notifyDataSetChanged();
-                                        }
-                                    });
+                            final ChatMessage cm = new ChatMessage("", "", messageBody, "" + random.nextInt(1000), false);
+                            cm.setMsgID();
+                            cm.body = messageBody;
+                            cm.avatar = friendAvatar;
+                            cm.Time = CommonMethods.getCurrentTime();
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    chatAdapter.add(cm);
+                                    chatAdapter.notifyDataSetChanged();
                                 }
-                            }
-                        });
+                            });
+                        }
                     }
                 });
+            }
+        });
     }
 
 
@@ -110,28 +111,29 @@ public class Chats extends ActionBarActivity {
 
     public void sendTextMessage(View v) {
 
-               String message = messageEdit.getEditableText().toString();
-               if (!message.equalsIgnoreCase("")) {
-                   final ChatMessage chatMessage = new ChatMessage("", "",
-                           message, "" + random.nextInt(1000), true);
-                   chatMessage.setMsgID();
-                   chatMessage.body = message;
-                   chatMessage.Date = CommonMethods.getCurrentDate();
-                   chatMessage.avatar = ownAvarat;
-                   chatMessage.Time = CommonMethods.getCurrentTime();
-                   messageEdit.setText("");
-                   chatAdapter.add(chatMessage);
-                   chatAdapter.notifyDataSetChanged();
-                   try {
-                       sendMessageToChat(userjid,message);
-                   } catch (SmackException.NotConnectedException e) {
-                       e.printStackTrace();
-                   }
+        String message = messageEdit.getEditableText().toString();
+        if (!message.equalsIgnoreCase("")) {
+            final ChatMessage chatMessage = new ChatMessage("", "",
+                    message, "" + random.nextInt(1000), true);
+            chatMessage.setMsgID();
+            chatMessage.body = message;
+            chatMessage.Date = CommonMethods.getCurrentDate();
+            chatMessage.avatar = ownAvarat;
+            chatMessage.Time = CommonMethods.getCurrentTime();
+            messageEdit.setText("");
+            chatAdapter.add(chatMessage);
+            chatAdapter.notifyDataSetChanged();
+            try {
+                sendMessageToChat(userjid, message);
+            } catch (SmackException.NotConnectedException e) {
+                e.printStackTrace();
+            }
 
 
-               }
+        }
 
     }
+
     private void sendMessageToChat(String user, String message) throws SmackException.NotConnectedException {
         ChatManager chatManager = ChatManager.getInstanceFor(XMPP.connection);
         Chat chat = chatManager.createChat(user);

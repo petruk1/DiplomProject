@@ -28,7 +28,8 @@
         android:id="@+id/contact_info_remove"
         android:background="@drawable/remove_user"
         android:layout_alignTop="@+id/contact_info_chat"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:onClick="removeContact" />
 
     <ListView
         android:layout_width="fill_parent"

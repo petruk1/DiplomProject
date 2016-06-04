@@ -73,14 +73,15 @@ public class ChatList extends android.support.v4.app.Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+
     View view;
     ListView chatList;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if (XMPP.connection != null) {
-      view = inflater.inflate(R.layout.fragment_chat_list, container, false);
-
+            view = inflater.inflate(R.layout.fragment_chat_list, container, false);
 
 
             chatList = (ListView) view.findViewById(R.id.chats_list);
@@ -102,8 +103,8 @@ public class ChatList extends android.support.v4.app.Fragment {
         try {
             mListener = (OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
-        //    throw new ClassCastException(activity.toString()
-       //             + " must implement OnFragmentInteractionListener");
+            //    throw new ClassCastException(activity.toString()
+            //             + " must implement OnFragmentInteractionListener");
         }
     }
 
@@ -127,9 +128,11 @@ public class ChatList extends android.support.v4.app.Fragment {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
-     Connection connection;
-    private ArrayList<ChatListItem> getChatsList(){
-      final   ArrayList<ChatListItem> chatListItem = new ArrayList<ChatListItem>();
+
+    Connection connection;
+
+    private ArrayList<ChatListItem> getChatsList() {
+        final ArrayList<ChatListItem> chatListItem = new ArrayList<ChatListItem>();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -145,14 +148,14 @@ public class ChatList extends android.support.v4.app.Fragment {
                             "((fromjid ='testuser1@vital' and tojid = 'testuser2@vital') " +
                             " or (fromjid ='testuser2@vital' and tojid = 'testuser1@vital')))";
                     ResultSet rsto = stmt.executeQuery(sql);
-                   // rsto.next();
+                    // rsto.next();
                     VCard vCard = new VCard();
                     vCard.load(XMPP.connection, "testuser2@vital");
                     listItem.setJid("testuser2@vital");
                     listItem.setName(vCard.getFirstName());
                     listItem.setAvatar(vCard.getAvatar());
                     listItem.setLastMessage(rsto.getString("body"));
-                    Log.d("LIST",rsto.getString("body"));
+                    Log.d("LIST", rsto.getString("body"));
                     Date d = new Date(Long.parseLong(rsto.getString("sentdate")));
                     listItem.setDateOfLastMessage(" 45" + d.getDay() + " days " +
                             d.getHours() + " h " +
@@ -162,7 +165,7 @@ public class ChatList extends android.support.v4.app.Fragment {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.d("LIST", "------ exception message ---- "+e.getMessage());
+                    Log.d("LIST", "------ exception message ---- " + e.getMessage());
                 }
             }
         }).start();

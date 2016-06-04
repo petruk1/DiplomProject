@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +46,7 @@ public class ContactList extends android.support.v4.app.Fragment {
     private String mParam1;
     private String mParam2;
     public static ListView contacts;
+    private ImageButton addFriend;
     private OnFragmentInteractionListener mListener;
 
     /**
@@ -85,19 +87,25 @@ public class ContactList extends android.support.v4.app.Fragment {
       if(XMPP.connection!=null) {
           view = inflater.inflate(R.layout.fragment_contact_list, container, false);
           contacts = (ListView) view.findViewById(R.id.Contact_contact_list);
-
+          addFriend = (ImageButton)view.findViewById(R.id.contact_list_addFriend);
           contacts.setPadding(5, 5, 5, 5);
           contacts.setAdapter(new ContactListAdapter(getActivity(), getContactsList()));
           contacts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
               @Override
               public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                   view.setBackgroundColor(189);
-                  Intent data = new Intent(getActivity(),ContactInfo.class);
-                String  jid=((TextView) view.findViewById(R.id.contact_item_jid)).getText().toString();
+                  Intent data = new Intent(getActivity(), ContactInfo.class);
+                  String jid = ((TextView) view.findViewById(R.id.contact_item_jid)).getText().toString();
                   Bundle b = new Bundle();
-                  b.putString("userjid",jid);
+                  b.putString("userjid", jid);
                   data.putExtras(b);
                   startActivity(data);
+              }
+          });
+          addFriend.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  startActivity(new Intent(getActivity(), SearchNewFriend.class));
               }
           });
       }
@@ -146,30 +154,34 @@ public class ContactList extends android.support.v4.app.Fragment {
         ArrayList<ContactListItem> contactsList = new ArrayList<ContactListItem>();
 
         Roster roster = Roster.getInstanceFor(XMPP.connection);
+
         Presence availabilyty;
         Presence.Mode userMode;
 
-        for(RosterEntry entry:roster.getEntries()){
+        for(RosterEntry entry:roster.getEntries()) {
+
             ContactListItem listItem = new ContactListItem();
-            VCard contactData = new VCard();
-            try{
+            if (roster.getGroup("Friends").contains(entry.getUser())) {
+                VCard contactData = new VCard();
+                try {
 
-                contactData.load(XMPP.connection, entry.getUser());
-                byte [] avatar = contactData.getAvatar();
-                listItem.setNAme(contactData.getFirstName());
-                if(avatar!=null)
-                listItem.setAvatarr(avatar);
+                    contactData.load(XMPP.connection, entry.getUser());
+                    byte[] avatar = contactData.getAvatar();
+                    listItem.setNAme(contactData.getFirstName());
+                    if (avatar != null)
+                        listItem.setAvatarr(avatar);
 
-            }catch (Exception e){
-                e.printStackTrace();
-               // Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    // Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_LONG).show();
+                }
+
+                availabilyty = roster.getPresence(entry.getUser());
+                userMode = availabilyty.getMode();
+                listItem.setStatus(retrieveState_mode(userMode, availabilyty.isAvailable()));
+                listItem.setJid(entry.getUser());
+                contactsList.add(listItem);
             }
-
-            availabilyty = roster.getPresence(entry.getUser());
-            userMode =availabilyty.getMode();
-            listItem.setStatus(retrieveState_mode(userMode,availabilyty.isAvailable()));
-            listItem.setJid(entry.getUser());
-            contactsList.add(listItem);
         }
         return contactsList;
     }

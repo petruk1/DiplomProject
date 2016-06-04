@@ -1,5 +1,6 @@
 package com.vitaliypetruk.project;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -21,7 +22,7 @@ import org.jivesoftware.smack.XMPPException;
 import java.io.IOException;
 
 
-public class Login extends ActionBarActivity {
+public class Login extends Activity {
     private ImageButton performLogin;
     private Button createNewAccount;
     private TextView username;
@@ -31,7 +32,6 @@ public class Login extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_login);
 
         performLogin = (ImageButton)findViewById(R.id.login_performLogin);
@@ -48,9 +48,9 @@ public class Login extends ActionBarActivity {
         Log.d("XMPP", "Service con -***** " + password.getText().toString());
         Log.d("XMPP", "Service con -***** " + username.getText().toString());
         intent.putExtras(loginingData);
-       if(!intent.getExtras().isEmpty()) Log.d("XMPP", "intent is null ***** ");
-       // startService(intent);
-        XMPP.getInstance("192.168.178.242",username.getText().toString(),password.getText().toString()).connect();
+
+        startService(intent);
+        XMPP.getInstance("10.42.0.1",username.getText().toString(),password.getText().toString()).connect();
 
         do{
             try {

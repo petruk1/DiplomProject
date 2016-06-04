@@ -55,6 +55,14 @@
             android:name=".Chats"
             android:label="@string/chat_title" >
         </activity>
+        <activity
+            android:name=".SearchNewFriend"
+            android:label="@string/title_activity_search_new_friend" >
+        </activity>
+        <activity
+            android:name=".EntryFriend"
+            android:label="@string/title_activity_entry_friend" >
+        </activity>
     </application>
 
 </manifest>

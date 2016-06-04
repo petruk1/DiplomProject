@@ -8,8 +8,8 @@
     <string name="title_activity_home">Home</string>
     <string name="title_activity_poligon">poligon</string>
     <string name="title_activity_login">Login</string>
-    <string name="title_activity_new_account__main_info">NewAccount_MainInfo</string>
-    <string name="title_activity_extends_info">Extends_info</string>
+    <string name="title_activity_new_account__main_info">Main data</string>
+    <string name="title_activity_extends_info">Additional data</string>
     <string name="title_activity_settings">Settings</string>
     <string name="title_settings_userinfo">Personal info</string>
     <string name="title_settings_exit">Log out</string>
@@ -17,4 +17,6 @@
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_contact_info">ContactInfo</string>
+    <string name="title_activity_search_new_friend">SearchNewFriend</string>
+    <string name="title_activity_entry_friend">EntryFriend</string>
 </resources>

@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context="com.vitaliypetruk.project.ContactList">
     <ListView
@@ -7,4 +7,17 @@
         android:id="@+id/Contact_contact_list"
         android:layout_weight="1"
         android:choiceMode="multipleChoiceModal" />
-</LinearLayout>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/contact_list_addFriend"
+        android:layout_gravity="bottom"
+        android:layout_weight="1"
+        android:background="@drawable/add_person"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:onClick="addContactToList" />
+</RelativeLayout>
