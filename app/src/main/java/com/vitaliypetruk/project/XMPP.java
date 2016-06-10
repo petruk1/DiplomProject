@@ -62,7 +62,6 @@ public class XMPP {
     private void initialiseConnection() {
         XMPPTCPConnectionConfiguration.Builder config = XMPPTCPConnectionConfiguration
                 .builder();
-        //  config.setUsernameAndPassword(username,password);
         config.setSecurityMode(ConnectionConfiguration.SecurityMode.disabled);
         config.setServiceName("vital");
         config.setHost("10.42.0.1");
@@ -101,6 +100,7 @@ public class XMPP {
     public static void destroyConnection(){
         connection.disconnect();
        connection=null;
+
     }
 
     public static void createUser(String username, String password, Map<String, String> setValues) throws SmackException.NotConnectedException, XMPPException.XMPPErrorException, SmackException.NoResponseException {
@@ -132,8 +132,8 @@ public class XMPP {
 
     public static ArrayList searchUser(String find) throws SmackException.NotConnectedException, XMPPException.XMPPErrorException, SmackException.NoResponseException {
         ArrayList result = new ArrayList();
-        Log.d("CREATOR", " conne" + connection.isConnected()
-                + "   auto " + connection.isAuthenticated());
+     //   Log.d("CREATOR", " conne" + connection.isConnected()
+      //          + "   auto " + connection.isAuthenticated());
         UserSearchManager usm = new UserSearchManager(connection);
         Form serchForm = usm.getSearchForm("search." + connection.getServiceName());
         Form answerForm = serchForm.createAnswerForm();

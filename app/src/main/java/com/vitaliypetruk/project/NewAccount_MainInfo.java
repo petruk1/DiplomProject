@@ -14,6 +14,7 @@ import android.widget.Toast;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPException;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,6 +37,7 @@ public class NewAccount_MainInfo extends ActionBarActivity {
         password = (EditText) findViewById(R.id.newAcc_mi_password);
         confirmPassword = (EditText) findViewById(R.id.newAcc_mi_conf_password);
         loadExtendsInfo = (Button) findViewById(R.id.newAcc_mi_next);
+
     }
 
     @Override

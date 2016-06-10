@@ -152,19 +152,15 @@ public class ContactList extends android.support.v4.app.Fragment {
     }
     private ArrayList<ContactListItem> getContactsList(){
         ArrayList<ContactListItem> contactsList = new ArrayList<ContactListItem>();
-
         Roster roster = Roster.getInstanceFor(XMPP.connection);
-
         Presence availabilyty;
         Presence.Mode userMode;
 
         for(RosterEntry entry:roster.getEntries()) {
-
             ContactListItem listItem = new ContactListItem();
             if (roster.getGroup("Friends").contains(entry.getUser())) {
                 VCard contactData = new VCard();
                 try {
-
                     contactData.load(XMPP.connection, entry.getUser());
                     byte[] avatar = contactData.getAvatar();
                     listItem.setNAme(contactData.getFirstName());
@@ -173,9 +169,7 @@ public class ContactList extends android.support.v4.app.Fragment {
 
                 } catch (Exception e) {
                     e.printStackTrace();
-                    // Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_LONG).show();
                 }
-
                 availabilyty = roster.getPresence(entry.getUser());
                 userMode = availabilyty.getMode();
                 listItem.setStatus(retrieveState_mode(userMode, availabilyty.isAvailable()));

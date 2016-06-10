@@ -19,4 +19,6 @@
     <string name="title_activity_contact_info">ContactInfo</string>
     <string name="title_activity_search_new_friend">SearchNewFriend</string>
     <string name="title_activity_entry_friend">EntryFriend</string>
+    <string name="title_activity_select_user_for_chat">SelectUserForChat</string>
+    <string name="title_activity_croup_chats">CroupChats</string>
 </resources>

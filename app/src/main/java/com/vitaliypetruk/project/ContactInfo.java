@@ -51,9 +51,12 @@ public class ContactInfo extends ActionBarActivity {
     private ArrayList getListData() {
         ArrayList<ContactInfoItem> results = new ArrayList<>();
         try {
-            vCard.load(XMPP.connection,jid);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(vCard.getAvatar(),0,vCard.getAvatar().length);
-            avatarImageView.setImageBitmap(bitmap);
+            vCard.load(XMPP.connection, jid);
+            if (vCard.getAvatar() != null) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(vCard.getAvatar(),0,vCard.getAvatar().length);
+                avatarImageView.setImageBitmap(bitmap);
+            }
+
                     ContactInfoItem name = new ContactInfoItem();
             if(vCard.getFirstName()!=null){
                 name.setMainText(vCard.getFirstName());
@@ -97,6 +100,7 @@ public class ContactInfo extends ActionBarActivity {
             ContactInfoItem age = new ContactInfoItem();
             if(vCard.getFirstName()!=null){
                 age.setMainText(vCard.getField("AGE"));
+                Toast.makeText(this,"_"+vCard.getField("AGE"),Toast.LENGTH_LONG).show();
                 age.setSubText("Age");
             }else{
                 age.setMainText("not Secified");

@@ -63,6 +63,14 @@
             android:name=".EntryFriend"
             android:label="@string/title_activity_entry_friend" >
         </activity>
+        <activity
+            android:name=".SelectUserForChat"
+            android:label="@string/title_activity_select_user_for_chat" >
+        </activity>
+        <activity
+            android:name=".GroupChats"
+            android:label="@string/title_activity_croup_chats" >
+        </activity>
     </application>
 
 </manifest>

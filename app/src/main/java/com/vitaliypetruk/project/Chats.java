@@ -1,6 +1,8 @@
 package com.vitaliypetruk.project;
 
 import android.app.Activity;
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -29,6 +31,8 @@ import org.jivesoftware.smack.packet.Stanza;
 import org.jivesoftware.smackx.vcardtemp.packet.VCard;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -47,7 +51,9 @@ public class Chats extends ActionBarActivity {
     private String userjid;
     byte[] ownAvarat = null;
     byte[] friendAvatar = null;
-
+    DBHistory history;
+    SQLiteDatabase db;
+    long row;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +69,9 @@ public class Chats extends ActionBarActivity {
         random = new Random();
         savedInstanceState = getIntent().getExtras();
         userjid = savedInstanceState.getString("userjid");
+        history = new DBHistory(this);
+
+        db = history.getWritableDatabase();
         try {
             ownCard.load(XMPP.connection);
             ownAvarat = ownCard.getAvatar();
@@ -83,8 +92,19 @@ public class Chats extends ActionBarActivity {
                     public void processMessage(Chat chat, Message message) {
                         if (message.getBody() != null) {
                             String messageBody = message.getBody();
-                            System.out.println(messageBody);
+                            ContentValues cv = new ContentValues();
+                            cv.put("convid",1);
+                            cv.put("fromjid",message.getFrom());
+                            cv.put("tojid", message.getTo());
+                            cv.put("message",messageBody);
 
+                            row = db.insert("messagehistory",null,cv);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(Chats.this,""+row,Toast.LENGTH_LONG).show();
+                                }
+                            });
                             final ChatMessage cm = new ChatMessage("", "", messageBody, "" + random.nextInt(1000), false);
                             cm.setMsgID();
                             cm.body = messageBody;
@@ -128,58 +148,13 @@ public class Chats extends ActionBarActivity {
             } catch (SmackException.NotConnectedException e) {
                 e.printStackTrace();
             }
-
-
         }
-
     }
 
     private void sendMessageToChat(String user, String message) throws SmackException.NotConnectedException {
         ChatManager chatManager = ChatManager.getInstanceFor(XMPP.connection);
         Chat chat = chatManager.createChat(user);
         chat.sendMessage(message);
-
-
-//                    @Override
-//                    public void processMessage(org.jivesoftware.smack.Chat chat, Message message) {
-//
-//                        ChatItem item = new ChatItem();
-//                        item.setMessageText(body);
-//                        item.setUsernameTitle(from);
-//
-//                        item.setAvatar(vCard.getAvatar());
-//
-//                        adapter.add(item);
-//                        runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                try {
-//                                    vCard.load(XmppManager.connection,username);
-//                                } catch (XMPPException e) {
-//                                    e.printStackTrace();
-//                                }
-//                                chatList.setAdapter(new ChatAdapter(Chat.this, adapter));
-//                                scroll();
-//                            }
-//                        });
-//                    }
-//                };
-//
-//                chat = chatManager.createChat("testuser2@vital", messageListener);
-//
-//                while (true) {
-//                    try {
-//                        Thread.sleep(50);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-
     }
-   /* private static String recieveMessageFromChat(){
-
-
-        return messageBody;
-    }*/
-
 
 }

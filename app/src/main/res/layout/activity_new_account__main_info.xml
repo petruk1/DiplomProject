@@ -10,17 +10,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Username: *"
+        android:text="Username:       "
         android:id="@+id/username_lable"
+        android:layout_marginTop="43dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="42dp" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Name: *"
+        android:text="Name:      "
         android:id="@+id/name_lable"
         android:layout_alignTop="@+id/newAcc_mi_name"
         android:layout_alignParentStart="true" />
@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="E-mail:*"
+        android:text="E-mail:      "
         android:id="@+id/mail_lable"
         android:layout_below="@+id/newAcc_mi_name"
         android:layout_alignParentStart="true" />
@@ -38,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Password: *"
+        android:text="Password:      "
         android:id="@+id/password_lable"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/newAcc_mi_mail"
@@ -48,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Confirm password: *"
+        android:text="Confirm password:      "
         android:id="@+id/confirmpassword_lable"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/newAcc_mi_conf_password"
@@ -63,8 +63,8 @@
         android:id="@+id/newAcc_mi_name"
         android:layout_below="@+id/newAcc_mi_username"
         android:layout_alignParentEnd="true"
-        android:layout_alignStart="@+id/newAcc_mi_mail"
-        android:text="a s" />
+        android:text="a s"
+        android:layout_toEndOf="@+id/username_lable" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -74,7 +74,8 @@
         android:id="@+id/newAcc_mi_mail"
         android:layout_alignTop="@+id/mail_lable"
         android:layout_alignParentEnd="true"
-        android:text="as@ba" />
+        android:text="as@ba"
+        android:layout_alignStart="@+id/newAcc_mi_name" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -84,7 +85,8 @@
         android:id="@+id/newAcc_mi_password"
         android:layout_alignTop="@+id/confirmpassword_lable"
         android:layout_alignParentEnd="true"
-        android:text="as" />
+        android:text="as"
+        android:layout_alignStart="@+id/newAcc_mi_conf_password" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -94,7 +96,8 @@
         android:id="@+id/newAcc_mi_conf_password"
         android:layout_alignTop="@+id/password_lable"
         android:layout_alignParentEnd="true"
-        android:text="as" />
+        android:text="as"
+        android:layout_alignStart="@+id/newAcc_mi_mail" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -102,8 +105,7 @@
         android:id="@+id/newAcc_mi_username"
         android:layout_alignTop="@+id/username_lable"
         android:layout_alignEnd="@+id/newAcc_mi_conf_password"
-        android:layout_toEndOf="@+id/confirmpassword_lable"
-        android:layout_alignStart="@+id/newAcc_mi_name"
+        android:layout_toEndOf="@+id/password_lable"
         android:text="as" />
 
     <Button

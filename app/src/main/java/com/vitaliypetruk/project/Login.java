@@ -49,7 +49,7 @@ public class Login extends Activity {
         Log.d("XMPP", "Service con -***** " + username.getText().toString());
         intent.putExtras(loginingData);
 
-        startService(intent);
+
         XMPP.getInstance("10.42.0.1",username.getText().toString(),password.getText().toString()).connect();
 
         do{
@@ -66,6 +66,7 @@ public class Login extends Activity {
                 Toast.makeText(getBaseContext(),"Try again3",Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }} while(!isLogined);
+        startService(intent);
         startActivity(new Intent(Login.this, Home.class));
             finish();
     }
@@ -86,7 +87,7 @@ public class Login extends Activity {
         return false;
     }
     public void loadNewAcc(View view){
-        startService(new Intent(this,CService.class));
+        XMPP.getInstance("10.42.0.1",username.getText().toString(),password.getText().toString()).connect();
         startActivity(new Intent(this,NewAccount_MainInfo.class));
     }
 }

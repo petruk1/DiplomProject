@@ -46,10 +46,11 @@ public class CService extends Service {
         return null;
     }
     String lastMessageFrom;
+    String lastFrienRequestFrom;
     @Override
     public int onStartCommand(final Intent intent, int flags, int startId) {
-        Roster roster =Roster.getInstanceFor(XMPP.connection);
-
+      //  Roster roster =Roster.getInstanceFor(XMPP.connection);
+       // if(XMPP.connection == null ) XMPP.getInstance("10.42.0.1","","").connect();
            XMPP.connection.addPacketListener(new PacketListener() {
 
                @Override
@@ -61,37 +62,39 @@ public class CService extends Service {
                    VCard vc = new VCard();
                    try {
                        vc.load(XMPP.connection,fromId);
+                       lastFrienRequestFrom = fromId;
                    } catch (SmackException.NoResponseException e) {
                        e.printStackTrace();
                    } catch (XMPPException.XMPPErrorException e) {
                        e.printStackTrace();
                    }
-                   NotificationCompat.Builder mBuilder =
-                           new NotificationCompat.Builder(getBaseContext())
-                                   .setSmallIcon(R.drawable.man)
+                 //  if(!vc.getFirstName().equals("")) {
+                       NotificationCompat.Builder mBuilder =
+                               new NotificationCompat.Builder(getBaseContext())
+                                       .setSmallIcon(R.drawable.man)
+                                       .setContentTitle("New fried request")
+                                       .setContentText(vc.getFirstName());
 
-                                   .setContentTitle("You have friend request from")
-                                   .setContentText(vc.getFirstName());
+                       mBuilder.setAutoCancel(true);
+                       Intent resultIntent = new Intent(getBaseContext(), EntryFriend.class);
+                       Bundle b = new Bundle();
+                       b.putString("userjid", fromId);
+                       resultIntent.putExtras(b);
+                       TaskStackBuilder stackBuilder = TaskStackBuilder.create(getBaseContext());
+                       stackBuilder.addParentStack(EntryFriend.class);
+                       stackBuilder.addNextIntent(resultIntent);
+                       PendingIntent resultPendingIntent =
+                               stackBuilder.getPendingIntent(
+                                       0,
+                                       PendingIntent.FLAG_UPDATE_CURRENT
+                               );
+                       // mBuilder.addAction(R.drawable.login_button,"Ac",resultPendingIntent);
+                       mBuilder.setContentIntent(resultPendingIntent);
+                       NotificationManager mNotificationManager =
+                               (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-                    mBuilder.setAutoCancel(true);
-                   Intent resultIntent = new Intent(getBaseContext(), EntryFriend.class);
-                   Bundle b = new Bundle();
-                   b.putString("userjid", fromId);
-                   resultIntent.putExtras(b);
-                   TaskStackBuilder stackBuilder = TaskStackBuilder.create(getBaseContext());
-                   stackBuilder.addParentStack(EntryFriend.class);
-                   stackBuilder.addNextIntent(resultIntent);
-                   PendingIntent resultPendingIntent =
-                           stackBuilder.getPendingIntent(
-                                   0,
-                                   PendingIntent.FLAG_UPDATE_CURRENT
-                           );
-                  // mBuilder.addAction(R.drawable.login_button,"Ac",resultPendingIntent);
-                   mBuilder.setContentIntent(resultPendingIntent);
-                   NotificationManager mNotificationManager =
-                           (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-                   mNotificationManager.notify(1, mBuilder.build());
+                       mNotificationManager.notify(1, mBuilder.build());
+                 //  }
                }
            }, new PacketFilter() {
 
@@ -105,6 +108,7 @@ public class CService extends Service {
                                || presence.getType().equals(Presence.Type.unsubscribe)
                                || presence.getType().equals(Presence.Type.available)
                                || presence.getType().equals(Presence.Type.unavailable)) {
+                           if((!stanza.getFrom().equals(lastFrienRequestFrom)))
                            return true;
                        }
                    }
@@ -113,62 +117,62 @@ public class CService extends Service {
            });
 
 
-        XMPP.connection.addPacketListener(new PacketListener() {
-            @Override
-            public void processPacket(Stanza stanza) throws SmackException.NotConnectedException {
-
-                Message message = (Message) stanza;
-                lastMessageFrom= message.getFrom();
-
-
-                    final String fromId = stanza.getFrom();
-                    VCard vc = new VCard();
-                    try {
-                        vc.load(XMPP.connection,fromId);
-                    } catch (SmackException.NoResponseException e) {
-                        e.printStackTrace();
-                    } catch (XMPPException.XMPPErrorException e) {
-                        e.printStackTrace();
-                    }
-                    NotificationCompat.Builder mBuilder =
-                            new NotificationCompat.Builder(getBaseContext())
-                                    .setSmallIcon(R.drawable.message)
-                                    .setContentTitle(vc.getFirstName())
-                                    .setContentText(message.getBody());
-
-                    mBuilder.setAutoCancel(true);
-                    Intent resultIntent = new Intent(getBaseContext(), Chats.class);
-                    Bundle b = new Bundle();
-                    b.putString("userjid",fromId);
-                    resultIntent.putExtras(b);
-                    TaskStackBuilder stackBuilder = TaskStackBuilder.create(getBaseContext());
-                    stackBuilder.addParentStack(Chats.class);
-                    stackBuilder.addNextIntent(resultIntent);
-                    PendingIntent resultPendingIntent =
-                            stackBuilder.getPendingIntent(
-                                    0,
-                                    PendingIntent.FLAG_UPDATE_CURRENT
-                            );
-                    mBuilder.setContentIntent(resultPendingIntent);
-                    NotificationManager mNotificationManager =
-                            (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                    mNotificationManager.notify(1, mBuilder.build());
-
-
-            }
-
-        }, new PacketFilter() {
-            @Override
-            public boolean accept(Stanza stanza) {
-                if(stanza instanceof Message){
-                    if(((Message) stanza).getBody()!=null){
-                        if(!stanza.getFrom().equals(lastMessageFrom))
-                        return true;
-                    }
-                }
-                return false;
-            }
-        });
+//        XMPP.connection.addPacketListener(new PacketListener() {
+//            @Override
+//            public void processPacket(Stanza stanza) throws SmackException.NotConnectedException {
+//
+//                Message message = (Message) stanza;
+//
+//                    final String fromId = stanza.getFrom();
+//                    VCard vc = new VCard();
+//                    try {
+//                        vc.load(XMPP.connection,stanza.getFrom());
+//
+//                    } catch (SmackException.NoResponseException e) {
+//                        e.printStackTrace();
+//                    } catch (XMPPException.XMPPErrorException e) {
+//                        e.printStackTrace();
+//                    }
+//                    NotificationCompat.Builder mBuilder =
+//                            new NotificationCompat.Builder(getBaseContext())
+//                                    .setSmallIcon(R.drawable.new_message_icon1,1)
+//
+//                                    .setContentTitle(stanza.getFrom())
+//                                    .setContentText(message.getBody());
+//
+//                    mBuilder.setAutoCancel(true);
+//                    Intent resultIntent = new Intent(getBaseContext(), Chats.class);
+//                    Bundle b = new Bundle();
+//                    b.putString("userjid",fromId);
+//                    resultIntent.putExtras(b);
+//                    TaskStackBuilder stackBuilder = TaskStackBuilder.create(getBaseContext());
+//                    stackBuilder.addParentStack(Chats.class);
+//                    stackBuilder.addNextIntent(resultIntent);
+//                    PendingIntent resultPendingIntent =
+//                            stackBuilder.getPendingIntent(
+//                                    0,
+//                                    PendingIntent.FLAG_UPDATE_CURRENT
+//                            );
+//                    mBuilder.setContentIntent(resultPendingIntent);
+//                    NotificationManager mNotificationManager =
+//                            (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//                    mNotificationManager.notify(1, mBuilder.build());
+//
+//
+//            }
+//
+//        }, new PacketFilter() {
+//            @Override
+//            public boolean accept(Stanza stanza) {
+//                if(stanza instanceof Message){
+//                    if(((Message) stanza).getBody()!=null){
+//                        if(!stanza.getFrom().equals(lastMessageFrom))
+//                        return true;
+//                    }
+//                }
+//                return false;
+//            }
+//        });
 
            return START_STICKY;
 
@@ -180,6 +184,6 @@ public class CService extends Service {
     }
     public void onDestroy(){
         Log.d("XMPP","onDestroy");
-        XMPP.connection = null;
+      //  XMPP.connection = null;
     }
 }

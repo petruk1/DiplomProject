@@ -105,10 +105,6 @@ public class Home extends ActionBarActivity implements ActionBar.TabListener {
         inflater.inflate(R.menu.menu_home, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-
-   //     contactList = ContactList.contacts;
-
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -189,10 +185,10 @@ public class Home extends ActionBarActivity implements ActionBar.TabListener {
         @Override
         public Fragment getItem(int position) {
 
-           /* if (position == 0) {
+           if (position == 0) {
 
                 return ChatList.newInstance("","");
-            } else*/
+            } else
             if (position == 1) {
                 sett = true;
 

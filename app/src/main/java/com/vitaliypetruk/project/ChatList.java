@@ -1,6 +1,7 @@
 package com.vitaliypetruk.project;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -8,7 +9,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.chat.Chat;
@@ -40,6 +43,7 @@ public class ChatList extends android.support.v4.app.Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    ImageButton add;
 
     private OnFragmentInteractionListener mListener;
 
@@ -80,13 +84,20 @@ public class ChatList extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if (XMPP.connection != null) {
+        //if (XMPP.connection != null) {
             view = inflater.inflate(R.layout.fragment_chat_list, container, false);
+            add = (ImageButton)view.findViewById(R.id.chat_list_addChat);
+            add.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getActivity(),SelectUserForChat.class));
+                    Toast.makeText(getActivity(),"YYep",Toast.LENGTH_LONG).show();
+                }
+            });
 
-
-            chatList = (ListView) view.findViewById(R.id.chats_list);
-            chatList.setAdapter(new ChatListAdapter(getActivity(), getChatsList()));
-        }
+         /*   chatList = (ListView) view.findViewById(R.id.chats_list);
+            chatList.setAdapter(new ChatListAdapter(getActivity(), getChatsList()));*/
+      //  }
         return view;
     }
 
