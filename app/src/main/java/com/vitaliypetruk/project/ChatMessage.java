@@ -11,7 +11,7 @@ public class ChatMessage {
     public String msgid;
     public byte[] avatar;
 
-    public boolean isMine;// Did I send the message.
+    public boolean isMine;
 
     public ChatMessage(String Sender, String Receiver, String messageString,
                        String ID, boolean isMINE) {

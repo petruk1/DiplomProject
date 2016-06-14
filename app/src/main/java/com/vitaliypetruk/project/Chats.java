@@ -51,8 +51,7 @@ public class Chats extends ActionBarActivity {
     private String userjid;
     byte[] ownAvarat = null;
     byte[] friendAvatar = null;
-    DBHistory history;
-    SQLiteDatabase db;
+
     long row;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,9 +68,9 @@ public class Chats extends ActionBarActivity {
         random = new Random();
         savedInstanceState = getIntent().getExtras();
         userjid = savedInstanceState.getString("userjid");
-        history = new DBHistory(this);
 
-        db = history.getWritableDatabase();
+
+
         try {
             ownCard.load(XMPP.connection);
             ownAvarat = ownCard.getAvatar();
@@ -92,13 +91,7 @@ public class Chats extends ActionBarActivity {
                     public void processMessage(Chat chat, Message message) {
                         if (message.getBody() != null) {
                             String messageBody = message.getBody();
-                            ContentValues cv = new ContentValues();
-                            cv.put("convid",1);
-                            cv.put("fromjid",message.getFrom());
-                            cv.put("tojid", message.getTo());
-                            cv.put("message",messageBody);
 
-                            row = db.insert("messagehistory",null,cv);
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
